@@ -21,7 +21,7 @@ After this, we build the docker image with the dockerfile provided in this repo 
 
 `docker build -t ros_noetic_full_2204 .`
 
-And we start an interactive bash session by executing from the root directory
+And we start an interactive bash session by executing from the root directory, mounting the root directory to the image
 
 `docker run -it --rm -v .:/ros_noetic_desktop_full_2204 ros_noetic_full_2204 bash`
 
