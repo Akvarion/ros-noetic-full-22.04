@@ -7,7 +7,7 @@ On the host machine, make a folder in which we will be downloading the source ne
 
 ros_noetic_desktop_full_2204 will be from now on our Root directory.
 
-In this directory, we want to download our source. Once we move there, we will have to run the shell script provided in this repository to download all the packages that rosinstall would have wanted us to install if we selected `desktop_full` as our target build. If the sccript is not executable, a simple `chmod +x` sould suffice.
+In this directory, we want to download our source. Once we move there, we will have to run the shell script provided in this repository to download all the packages that rosinstall would have wanted us to install if we selected `desktop_full` as our target build. If the script is not executable, a simple `chmod +x` sould suffice.
 
 `/<a_path>/ros_noetic_desktop_full_2204/src - ./ros_noetic_df_git_pull.sh`
 
@@ -18,6 +18,7 @@ git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
 git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
 ```
 After this, we build the docker image with the dockerfile provided in this repo and build the image with:
+
 `docker build -t ros_noetic_full_2204 .`
 
 And we start an interactive bash session by executing from the root directory
