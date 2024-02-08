@@ -162,5 +162,3 @@ git clone https://github.com/ros/xacro.git -b 1.14.17
 git clone https://github.com/ros-perception/laser_proc.git
 git clone --depth 1 --branch kinetic-devel https://github.com/ros-controls/urdf_geometry_parser.git
 git clone --depth 1 --branch master https://github.com/ros-drivers/four_wheel_steering_msgs.git
-git clone --depth 1 --branch main https://github.com/ros-drivers/joystick_drivers.git
-git clone --depth 1 --branch noetic-devel https://github.com/ros-drivers/rosserial.git
