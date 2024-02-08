@@ -37,5 +37,7 @@ cd /ros_noetic_desktop_full_2204/catkin_ws
 ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
 
-## Issues
-Currently, the packages are configured but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
+## Changelog - Issues
+07/02/2024  - Currently, the packages are configured but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
+
+08/02/2024  - Changing approach: building base version first and build subsequent packages later. Added script to clone base version and patch them.
