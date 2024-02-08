@@ -17,13 +17,14 @@ In the root directory, we need to clone catkin_pkg and rospkg, so we do:
 git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
 git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
 ```
-After this, we build the docker image with the dockerfile provided in this repo and build the image with:
-
-`docker build -t ros_noetic_full_2204 .`
-
-And we start an interactive bash session by executing from the root directory, mounting the root directory to the image
-
-`docker run -it --rm -v .:/ros_noetic_desktop_full_2204 ros_noetic_full_2204 bash`
+After this, we build the docker image with the dockerfile provided in this repo with:
+```
+docker build -t ros_noetic_full_2204 .
+```
+Then we start an interactive bash session by executing from the root directory, mounting the root directory to the image
+```
+docker run -it --rm -v .:/ros_noetic_desktop_full_2204 ros_noetic_full_2204 bash
+```
 
 Then we build rospkg and catkin_pkg with the following:
 ```
@@ -38,6 +39,6 @@ cd /ros_noetic_desktop_full_2204/catkin_ws
 ```
 
 ## Changelog - Issues
-07/02/2024  - Currently, the packages are configured but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
+07/02/2024  - Currently, packages are configured by catkin_make but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
 
 08/02/2024  - Changing approach: building base version first and build subsequent packages later. Added script to clone base version and patch them. Base version seems to build fine.
