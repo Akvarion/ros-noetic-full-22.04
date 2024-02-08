@@ -1,5 +1,5 @@
 # ros-noetic-full-22.04
-This is an attempt to build the desktop full version of ROS 1 Noetic from source. It uses a custom ubuntu 22.04 docker image used as an evironment to build noetic, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7).
+This is an attempt to build the desktop full version of ROS 1 Noetic from source. It uses a custom ubuntu 22.04 docker image as an evironment to build noetic, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7). Refer to Issues section of this readme for further info on the current situation.
 
 ## Installation
 On the host machine, make a folder in which we will be downloading the source needed to build ros, so if our current folder is our home folder:
