@@ -26,7 +26,7 @@ Then we start an interactive bash session by executing from the root directory, 
 docker run -it --rm -v .:/ros_noetic_desktop_full_2204 ros_noetic_full_2204 bash
 ```
 
-Then we build rospkg and catkin_pkg with the following:
+Then we build rospkg and catkin_pkg with the following (1):
 ```
 cd /ros_noetic_desktop_full_2204/catkin_pkg && python3 setup.py install
 cd /ros_noetic_desktop_full_2204/rospkg && python3 setup.py install
@@ -37,6 +37,8 @@ Lastly we start building ROS with the following:
 cd /ros_noetic_desktop_full_2204/catkin_ws
 ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
+
+(1): This has to be run everytime you load into the image shell. After the first successfull build, you can source the setup.bash file in the devel directory and run, for example, roscore.
 
 ## Changelog - Issues
 07/02/2024  - Currently, packages are configured by catkin_make but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
