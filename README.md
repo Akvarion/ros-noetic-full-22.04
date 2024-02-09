@@ -41,6 +41,30 @@ cd /ros_noetic_desktop_full_2204/catkin_ws
 (1): This has to be run everytime you load into the image shell. After the first successfull build, you can source the setup.bash file in the devel directory and run, for example, roscore.
 
 ## Changelog - Issues
-07/02/2024  - Currently, packages are configured by catkin_make but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
+* 07/02/2024  - Currently, packages are configured by catkin_make but an issue with the math.h library not being properly linked in a package halts the build, and is curretly being investigated.
 
-08/02/2024  - Changing approach: building base version first and build subsequent packages later. Added script to clone base version and patch them. Base version seems to build fine.
+* 08/02/2024  - Changing approach: building base version first and build subsequent packages later. Added script to clone base version and patch them. Base version seems to build fine.
+
+* 09/02/2024 - Added patches to build `tf` and `urdf` packages with c++17. Achieved success in building the following packages (and their sub-packages):
+  + angles
+  + common_tutorials
+  + control_msgs
+  + realtime_tools
+  + control_toolbox
+  + geometry
+  + geometry_experimental
+  + ros_tutorials
+  + geometry_tutorials
+  + diagnostics
+  + executive_smach
+  + filters
+  + urdf
+  + urdf_sim_tutorial
+  + urdf_tutorial
+  + vision_opencv
+  + image_common
+  + image_transport_plugins
+  + gazebo_ros_pkgs
+  + gl_dependency
+  + image_pipeline
+  + interactive_markers
