@@ -43,7 +43,8 @@ RUN apt-get install -y git \
         libpcl-dev \
         liburdfdom-dev \
         libopencv-dev \
-        fltk1.1-dev
+        fltk1.1-dev \
+        rviz
 #Python Stuff
 RUN apt-get install -y python3-empy \
         python3-nose \
@@ -54,7 +55,11 @@ RUN apt-get install -y python3-empy \
         python3-gnupg \
         python3-numpy \
         python3-psutil \
-        python3-sip
+        python3-sip \
+        pyqt5-dev-tools \
+        sip-dev \
+        pyqt5-dev \
+        python3-sip-dev
 
 WORKDIR "/home"
 RUN git clone https://github.com/orocos/orocos_kinematics_dynamics.git && mkdir /home/orocos_kinematics_dynamics/build

@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ba4ec83..8fd46ff 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
+ 
+ project(rqt_image_view)
+ 
+-add_compile_options(-std=c++11)
++add_compile_options(-std=c++17)
+ 
+ # Load catkin and all dependencies required for this package
+ find_package(catkin REQUIRED COMPONENTS rqt_gui rqt_gui_cpp image_transport sensor_msgs geometry_msgs cv_bridge)

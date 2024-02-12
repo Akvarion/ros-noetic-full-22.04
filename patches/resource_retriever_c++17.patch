@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 359c9e8..0cec769 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.0.2)
+ project(resource_retriever)
+ 
+-set_directory_properties(PROPERTIES COMPILE_OPTIONS "-std=c++11")
++set_directory_properties(PROPERTIES COMPILE_OPTIONS "-std=c++17")
+ 
+ find_package(catkin REQUIRED COMPONENTS rosconsole roslib)
+ 
