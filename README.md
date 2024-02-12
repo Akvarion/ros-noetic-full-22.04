@@ -46,25 +46,51 @@ cd /ros_noetic_desktop_full_2204/catkin_ws
 * 08/02/2024  - Changing approach: building base version first and build subsequent packages later. Added script to clone base version and patch them. Base version seems to build fine.
 
 * 09/02/2024 - Added patches to build `tf` and `urdf` packages with c++17. Achieved success in building the following packages (and their sub-packages):
-  + angles
-  + common_tutorials
-  + control_msgs
-  + realtime_tools
-  + control_toolbox
-  + geometry
-  + geometry_experimental
-  + ros_tutorials
-  + geometry_tutorials
-  + diagnostics
-  + executive_smach
-  + filters
-  + urdf
-  + urdf_sim_tutorial
-  + urdf_tutorial
-  + vision_opencv
-  + image_common
-  + image_transport_plugins
-  + gazebo_ros_pkgs
-  + gl_dependency
-  + image_pipeline
-  + interactive_markers
+  ```
+  angles                  common_tutorials
+  control_msgs            realtime_tools
+  control_toolbox         geometry
+  geometry_experimental   ros_tutorials
+  geometry_tutorials      diagnostics
+  executive_smach         filters
+  urdf                    urdf_sim_tutorial
+  urdf_tutorial           vision_opencv
+  image_common            image_transport_plugins
+  gazebo_ros_pkgs         gl_dependency
+  image_pipeline          interactive_markers
+  ```
+* 12/02/2024 - Added patches to build:
+  ```
+  kdl_parser              laser_filters
+  laser_geometry          perception_pcl
+  resource_retriever      robot_state_publisher
+  rqt_image_view
+  ```
+  Achieved success in building the following packages (and their subpackages):
+  ```
+  joint_state_publisher   kdl_parser
+  laser_proc              laser_assembler
+  laser_filters           laser_geometry
+  laser_pipeline          media_export
+  metapackages            navigation_msgs
+  pcl_msgs                perception_pcl
+  python_qt_binding       qt_gui_core
+  qwt_dependency          resource_retriever
+  robot_state_publisher   roslint
+  rqt                     rqt_action
+  rqt_bag                 rqt_common_plugins
+  rqt_console             rqt_dep
+  rqt_graph               rqt_image_view
+  rqt_launch              rqt_logger_level
+  rqt_moveit              rqt_msg
+  rqt_nav_view            rqt_plot
+  rqt_pose_view           rqt_publisher
+  rqt_py_console          rqt_reconfigure
+  rqt_robot_dashboard     rqt_robot_monitor
+  rqt_robot_plugins       rqt_robot_steering
+  rqt_runtime_monitor
+  ```
+
+
+
+  
