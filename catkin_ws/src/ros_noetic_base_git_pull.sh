@@ -1,3 +1,6 @@
+#!/bin/bash
+# This script will clone all ros-noetic base packages required
+
 git clone https://github.com/ros/actionlib.git -b 1.14.0
 git clone https://github.com/ros/bond_core.git -b 1.8.6
 git clone https://github.com/ros/catkin.git -b 0.8.10
