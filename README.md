@@ -2,59 +2,33 @@
 This is an attempt to build the desktop full version of ROS 1 Noetic from source. It uses a custom ubuntu 22.04 docker image as an evironment to build noetic, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7). Refer to the Changelog-Issues section of this readme for further info on the current situation.
 
 ## Install
-On the host machine, make a folder in which we will be downloading the source needed to build ros, so if our current folder is our home folder:
+Whole build and install of ros noetic base has been automated for use through the dockerfile provided in this repo. Open a terminal from a directory with the Dockerfile inside and simply run:
 ```
-~ - mkdir -p ros_noetic_desktop_full_2204/src
+~ - sudo docker build -t ros_noetic_22_04 .
+```
+Docker will take care of applying patches, building and installing all the components required for ros noetic base and desktop full.
+Next, you can start an interactive bash session with:
+```
+~ - sudo docker run -it --rm ros_noetic_22_04 bash
+```
+You can run roscore by sourcing the file "setup.bash" from that interactive bash session.
+
+While the Desktop Full version has been built, further time is needed. To install the desktop full packages, you need run each "git clone" package inside the script `ros_noetic_df_update_git_pull.sh`: one by one, git clone, check if they appear in the script `patcher_df_update.sh`, apply the relative patch if needed and build with the following command:
+```
+~ - cd /ros_noetic_desktop_full_2204/catkin_ws
+~ - ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="package1;package2;package3" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
+```
+where package1,package2,package3 are the names of the single packages to install (these MUST be specified, since a single package may be composed of more sub-packages: in this case, use the name of those sub-packages). Also, some packages may be required to be installed before others, but the compiler should tell you which package it is.
+
+The re-build of `catkin_pkg` and `rospkg` may be required every single time. To do so, launch this:
+```
+~ - cd /ros_noetic_desktop_full_2204/catkin_pkg && python3 setup.py install
+~ - cd /ros_noetic_desktop_full_2204/rospkg && python3 setup.py install
 ```
 
-ros_noetic_desktop_full_2204 will be from now on our Root directory.
-
-In this directory, we want to download our source. Once we move there, we will have to run the shell script provided in this repository to download all the packages that rosinstall would have wanted us to install if we selected `desktop_full` as our target build. If the script is not executable, a simple `chmod +x` sould suffice.
-
-```
-/<a_path>/ros_noetic_desktop_full_2204/catkin_ws/src - ./ros_noetic_df_git_pull.sh
-```
-For the base version:
-```
-/<a_path>/ros_noetic_desktop_full_2204/catkin_ws/src - ./ros_noetic_base_git_pull.sh
-```
-In the root directory, we need to clone catkin_pkg and rospkg, so we do:
-
-```
-cd /<a_path>/ros_noetic_desktop_full_2204/
-git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
-git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
-```
-After this, we build the docker image with the dockerfile provided in this repo with:
-```
-docker build -t ros_noetic_full_2204 .
-```
-Then we start an interactive bash session by executing from the root directory, mounting the root directory to the image
-```
-docker run -it --rm -v .:/ros_noetic_desktop_full_2204 ros_noetic_full_2204 bash
-```
-
-Then we build rospkg and catkin_pkg with the following (1):
-```
-cd /ros_noetic_desktop_full_2204/catkin_pkg && python3 setup.py install
-cd /ros_noetic_desktop_full_2204/rospkg && python3 setup.py install
-```
-
-Lastly we start building ROS with the following:
-```
-cd /ros_noetic_desktop_full_2204/catkin_ws
-./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
-```
-
-If you want to build a finite set of packages, just add the option `-DCATKIN_WHITELIST_PACKAGES` like this:
-```
-cd /ros_noetic_desktop_full_2204/catkin_ws
-./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="package1;package2;package3" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
-```
-
-(1): This has to be run everytime you load into the image shell. After the first successfull build, you can source the setup.bash file in the devel directory and run, for example, roscore.
 
 ## Changelog - Issues
+* 03/06/2024 - Developed Dockerfile to automate ros-noetic base install; added patching scripts. Edited Readme.
 * 13/02/2024 - Finished building all packages required by `rosinstall`. Ros-noetic base is built and roscore runs without issues. Still, running `catkin_make install` of all the packages inside `catkin_ws/src` throws the same cmake error as of Feb 7th, although all packages have been successfully built one-by-one. I suspect some linking libraries errors due to the amount of packages to be installed, but it's just a hunch. Theoretically, ros noetic full should have been built since all packages have been installed one-by-one; emphasis on the theoretical aspect.
 * 12/02/2024 - Added patches to build:
   ```
