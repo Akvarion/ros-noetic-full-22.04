@@ -6,7 +6,7 @@ Whole build and install of ros noetic base has been automated for use through th
 ```
 ~ - sudo docker build -t ros_noetic_22_04 .
 ```
-Docker will take care of applying patches, building and installing all the components required for ros noetic base and desktop full.
+Docker will take care of applying patches, building and installing all the components required for ros noetic base and provides all the tools to build the desktop full version.
 Next, you can start an interactive bash session with:
 ```
 ~ - sudo docker run -it --rm ros_noetic_22_04 bash
