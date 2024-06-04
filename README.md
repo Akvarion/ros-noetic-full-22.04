@@ -15,7 +15,7 @@ You can run roscore after sourcing the file "setup.bash" from that interactive b
 
 While the Desktop Full version has been built, further time is needed. To install the desktop full packages, you need run each "git clone" package inside the script `ros_noetic_df_update_git_pull.sh`: one by one, git clone, check if they appear in the script `patcher_df_update.sh`, apply the relative patch if needed and build with the following command:
 ```
-~ - cd /ros_noetic_desktop_full_2204/catkin_ws
+~ - cd /<path_to_directory>/catkin_ws
 ~ - ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="package1;package2;package3" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
 where package1,package2,package3 are the names of the single packages to install (these MUST be specified, since a single package may be composed of more sub-packages: in this case, use the name of those sub-packages). Also, some packages may be required to be installed before others, but the compiler should tell you which package it is.
