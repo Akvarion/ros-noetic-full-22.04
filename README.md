@@ -11,7 +11,7 @@ Next, you can start an interactive bash session with:
 ```
 ~ - sudo docker run -it --rm ros_noetic_22_04 bash
 ```
-You can run roscore by sourcing the file "setup.bash" from that interactive bash session.
+You can run roscore after sourcing the file "setup.bash" from that interactive bash session.
 
 While the Desktop Full version has been built, further time is needed. To install the desktop full packages, you need run each "git clone" package inside the script `ros_noetic_df_update_git_pull.sh`: one by one, git clone, check if they appear in the script `patcher_df_update.sh`, apply the relative patch if needed and build with the following command:
 ```
