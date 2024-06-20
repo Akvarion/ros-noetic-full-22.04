@@ -2,7 +2,7 @@
 # This script will install ROS 1 Noetic Base on Ubuntu 22.04
 
 
-cd catkin_ws/src
+cd ./catkin_ws/src
 
 git clone https://github.com/ros/actionlib.git -b 1.14.0
 git clone https://github.com/ros/bond_core.git -b 1.8.6
@@ -33,13 +33,13 @@ git clone https://github.com/ros/roslisp.git -b 1.9.25
 git clone https://github.com/ros/rospack.git -b 2.6.2
 git clone https://github.com/ros/std_msgs.git -b 0.5.13
 
-cd pluginlib && git apply --ignore-whitespa/ce ../../../patches/pluginlib.patch
+cd ./pluginlib && git apply --ignore-whitespace ../../../patches/pluginlib.patch
 cd ../ros_comm && git apply --ignore-whitespace ../../../patches/ros_comm.patch
 cd ../rosconsole && git apply --ignore-whitespace ../../../patches/rosconsole.patch
 
 cd ../../..
 git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
 git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
-cd catkin_pkg && python3 setup.py install
+cd ./catkin_pkg && python3 setup.py install
 cd ../rospkg && python3 setup.py install
 cd ../catkin_ws && ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
