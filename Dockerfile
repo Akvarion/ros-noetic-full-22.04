@@ -44,6 +44,7 @@ RUN apt-get install -y git curl \
         liburdfdom-dev \
         libopencv-dev \
         fltk1.1-dev \
+        librviz-dev \
         rviz
 # PYTHON STUFF
 RUN apt-get install -y python3-empy \
@@ -72,22 +73,7 @@ RUN cmake ../Stage && make && make install
 WORKDIR "/home"
 RUN curl -sSL http://get.gazebosim.org | sh
 RUN git clone https://github.com/Akvarion/ros-noetic-full-22.04.git 
-RUN mkdir -p /home/catkin_ws/src
-WORKDIR "/home/catkin_ws/src"
-RUN ../../ros-noetic-full-22.04/catkin_ws/src/ros_noetic_base_git_pull.sh
-RUN chmod 755 ../../ros-noetic-full-22.04/patches/patcher_base.sh
-RUN ../../ros-noetic-full-22.04/patches/patcher_base.sh
-WORKDIR "/home"
-RUN git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
-RUN git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
-
-WORKDIR "/home/catkin_pkg"
-RUN python3 setup.py install
-WORKDIR "/home/rospkg"
-RUN python3 setup.py install
-
-WORKDIR "/home/catkin_ws"
-RUN ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
-
-
+WORKDIR "/home/ros-noetic-full-22.04"
+RUN chmod 755 ros_noetic_base_install.sh
+RUN ./ros_noetic_base_install.sh
 
