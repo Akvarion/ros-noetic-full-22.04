@@ -33,7 +33,7 @@ git clone https://github.com/ros/roslisp.git -b 1.9.25
 git clone https://github.com/ros/rospack.git -b 2.6.2
 git clone https://github.com/ros/std_msgs.git -b 0.5.13
 
-cd pluginlib && git apply --ignore-whitespa/ce ../../../patches/pluginlib.patch
+cd pluginlib && git apply --ignore-whitespace ../../../patches/pluginlib.patch
 cd ../ros_comm && git apply --ignore-whitespace ../../../patches/ros_comm.patch
 cd ../rosconsole && git apply --ignore-whitespace ../../../patches/rosconsole.patch
 

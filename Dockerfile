@@ -6,7 +6,8 @@ RUN apt-get update && \
         build-essential \
         python3 \
         pip \
-        git
+        git \
+        wget
 
 # SINCE TZDATA HAS TO ASK
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata
@@ -43,9 +44,7 @@ RUN apt-get install -y git curl \
         libpcl-dev \
         liburdfdom-dev \
         libopencv-dev \
-        fltk1.1-dev \
-        librviz-dev \
-        rviz
+        fltk1.1-dev 
 # PYTHON STUFF
 RUN apt-get install -y python3-empy \
         python3-nose \
@@ -71,7 +70,11 @@ RUN git clone https://github.com/rtv/Stage.git && mkdir /home/stage4
 WORKDIR "/home/stage4"
 RUN cmake ../Stage && make && make install
 WORKDIR "/home"
-RUN curl -sSL http://get.gazebosim.org | sh
+RUN apt install -y gazebo libgazebo-dev
+# RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+# RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+# RUN apt-get update && apt-get install gazebo libgazebo-dev
+RUN apt-get install -y librviz-dev rviz
 RUN git clone https://github.com/Akvarion/ros-noetic-full-22.04.git 
 WORKDIR "/home/ros-noetic-full-22.04"
 RUN chmod 755 ros_noetic_base_install.sh
