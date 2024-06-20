@@ -77,6 +77,20 @@ RUN apt install -y gazebo libgazebo-dev
 RUN apt-get install -y librviz-dev rviz
 RUN git clone https://github.com/Akvarion/ros-noetic-full-22.04.git 
 WORKDIR "/home/ros-noetic-full-22.04"
-RUN chmod 755 ros_noetic_base_install.sh
-RUN ./ros_noetic_base_install.sh
-
+RUN chmod 755 ./old\ git\ cloning\ scripts/ros_noetic_base_git_pull.sh
+RUN ./old\ git\ cloning\ scripts/ros_noetic_base_git_pull.sh
+WORKDIR "/home/ros-noetic-full-22.04/catikin_ws/src/pluginlib"
+RUN git apply --ignore-whitespace ../../../patches/pluginlib.patch
+WORKDIR "/home/ros-noetic-full-22.04/catikin_ws/src/ros_comm"
+RUN git apply --ignore-whitespace ../../../patches/ros_comm.patch
+WORKDIR "/home/ros-noetic-full-22.04/catikin_ws/src/ros_console"
+RUN git apply --ignore-whitespace ../../../patches/rosconsole.patch
+WORKDIR "/home/ros-noetic-full-22.04/"
+RUN git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
+RUN git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
+WORKDIR "/home/ros-noetic-full-22.04/catkin_pkg"
+RUN python3 setup.py install
+WORKDIR "/home/ros-noetic-full-22.04/rospkg"
+RUN python3 setup.py install
+WORKDIR "/home/ros-noetic-full-22.04/catikin_ws"
+RUN ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3

@@ -18,3 +18,5 @@ index 289c5af..1776c02 100644
        add_dependencies(${PROJECT_NAME}_unique_ptr_test test_plugins)
      endif()
    endif()
+-
++   
