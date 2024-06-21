@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script will install ROS 1 Noetic Base on Ubuntu 22.04
 
-
+mkdir -p ./catkin_ws/src
 cd ./catkin_ws/src
 
 git clone https://github.com/ros/actionlib.git -b 1.14.0

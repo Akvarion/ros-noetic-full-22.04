@@ -6,7 +6,8 @@ RUN apt-get update && \
         build-essential \
         python3 \
         pip \
-        git
+        git \
+        wget
 
 # SINCE TZDATA HAS TO ASK
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata
@@ -43,8 +44,7 @@ RUN apt-get install -y git curl \
         libpcl-dev \
         liburdfdom-dev \
         libopencv-dev \
-        fltk1.1-dev \
-        rviz
+        fltk1.1-dev 
 # PYTHON STUFF
 RUN apt-get install -y python3-empy \
         python3-nose \
@@ -70,21 +70,12 @@ RUN git clone https://github.com/rtv/Stage.git && mkdir /home/stage4
 WORKDIR "/home/stage4"
 RUN cmake ../Stage && make && make install
 WORKDIR "/home"
-RUN curl -sSL http://get.gazebosim.org | sh
+RUN apt install -y gazebo libgazebo-dev
+# RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+# RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+# RUN apt-get update && apt-get install gazebo libgazebo-dev
+RUN apt-get install -y librviz-dev rviz
 RUN git clone https://github.com/Akvarion/ros-noetic-full-22.04.git 
-RUN mkdir -p /home/catkin_ws/src
-WORKDIR "/home/catkin_ws/src"
-RUN ../../ros-noetic-full-22.04/catkin_ws/src/ros_noetic_base_git_pull.sh
-RUN chmod 755 ../../ros-noetic-full-22.04/patches/patcher_base.sh
-RUN ../../ros-noetic-full-22.04/patches/patcher_base.sh
-WORKDIR "/home"
-RUN git clone https://github.com/ros-infrastructure/catkin_pkg.git -b 0.5.2
-RUN git clone https://github.com/ros-infrastructure/rospkg.git -b 1.5.0
-
-WORKDIR "/home/catkin_pkg"
-RUN python3 setup.py install
-WORKDIR "/home/rospkg"
-RUN python3 setup.py install
-
-WORKDIR "/home/catkin_ws"
-RUN ./src/catkin/bin/catkin_make install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
+WORKDIR "/home/ros-noetic-full-22.04"
+RUN chmod 755 ros_noetic_base_install.sh
+RUN ./ros_noetic_base_install.sh
