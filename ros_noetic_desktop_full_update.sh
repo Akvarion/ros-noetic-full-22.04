@@ -16,22 +16,11 @@ git clone https://github.com/ros/diagnostics.git -b 1.11.0
 git clone https://github.com/ros/executive_smach.git -b 2.5.2
 git clone https://github.com/ros/filters.git -b 1.9.2
 git clone https://github.com/ros-controls/ros_control.git -b 0.20.0
-
 git clone https://github.com/ros/urdf.git -b 1.13.2
-cd urdf && git apply --ignore-whitespace ../../../patches/urdf_c++17.patch
-cd ..
-
 git clone https://github.com/ros/resource_retriever.git -b 1.12.7
-cd resource_retriever && git apply --ignore-whitespace ../../../patches/resource_retriever_c++17.patch
-cd ..
-
 git clone https://github.com/ros-controls/ros_controllers.git -b 0.21.2
 git clone https://github.com/ros/geometry_experimental.git -b 0.7.7
-
 git clone https://github.com/ros/geometry.git -b 1.13.2
-cd geometry && git apply --ignore-whitespace ../../../patches/tf_c++17.patch
-cd ..
-
 git clone https://github.com/ros-perception/vision_opencv.git -b 1.16.2
 git clone https://github.com/ros-perception/image_common.git -b 1.12.0
 git clone https://github.com/ros-perception/image_pipeline.git -b 1.17.0
@@ -41,21 +30,10 @@ git clone https://github.com/ros/geometry_tutorials -b 0.2.3
 git clone https://github.com/ros-visualization/gl_dependency.git -b 1.1.2
 git clone https://github.com/ros-visualization/interactive_markers.git -b 1.12.0
 git clone https://github.com/ros/joint_state_publisher.git -b 1.15.1
-
 git clone https://github.com/ros/kdl_parser.git -b 1.14.2
-cd kdl_parser && git apply --ignore-whitespace ../../../patches/kdl_parser_c++17.patch
-cd ..
-
 git clone https://github.com/ros-perception/laser_geometry.git -b 1.6.7
-cd laser_geometry && git apply --ignore-whitespace ../../../patches/laser_geometry_c++17.patch
-cd ..
-
 git clone https://github.com/ros-perception/laser_assembler.git -b 1.7.8
-
 git clone https://github.com/ros-perception/laser_filters.git -b 1.9.0
-cd laser_filters && git apply --ignore-whitespace ../../../patches/laser_filters_c++17.patch
-cd ..
-
 git clone https://github.com/ros-perception/laser_pipeline.git -b 1.6.4
 git clone https://github.com/ros/media_export.git -b 0.3.0
 git clone https://github.com/ros/metapackages.git -b 1.5.0
@@ -65,11 +43,7 @@ git clone https://github.com/ros-perception/perception_pcl.git -b 1.7.4
 git clone https://github.com/ros-visualization/python_qt_binding.git -b 0.4.4
 git clone https://github.com/ros-visualization/qt_gui_core.git -b 0.4.2
 git clone https://github.com/ros-visualization/qwt_dependency.git -b 1.1.1
-
 git clone https://github.com/ros/robot_state_publisher.git -b 1.15.2
-cd robot_state_publisher && git apply --ignore-whitespace ../../../patches/robot_state_publisher_c++17.patch
-cd ..
-
 git clone https://github.com/ros/roslint.git -b 0.12.0
 git clone https://github.com/ros-visualization/rqt.git -b 0.5.3
 git clone https://github.com/ros-visualization/rqt_action.git -b 0.4.9
@@ -78,11 +52,7 @@ git clone https://github.com/ros-visualization/rqt_common_plugins.git -b 0.4.9
 git clone https://github.com/ros-visualization/rqt_console.git -b 0.4.12
 git clone https://github.com/ros-visualization/rqt_dep.git -b 0.4.12
 git clone https://github.com/ros-visualization/rqt_graph.git -b 0.4.14
-
 git clone https://github.com/ros-visualization/rqt_image_view.git -b 0.4.17
-cd ../rqt_image_view && git apply --ignore-whitespace ../../../patches/rqt_image_view_c++17.patch
-cd ..
-
 git clone https://github.com/ros-visualization/rqt_launch.git -b 0.4.9
 git clone https://github.com/ros-visualization/rqt_logger_level.git -b 0.4.12
 git clone https://github.com/ros-visualization/rqt_moveit.git -b 0.5.11
@@ -112,9 +82,20 @@ git clone https://github.com/ros/urdf_tutorial.git -b 0.5.0
 git clone https://github.com/ros-visualization/webkit_dependency.git -b 1.1.2
 git clone https://github.com/ros/xacro.git -b 1.14.17
 
-## Install, rospkg e catkin_pkg have been already installed
+# PATCHES   
+cd urdf && git apply --ignore-whitespace ../../../patches/urdf_c++17.patch
+cd ../resource_retriever && git apply --ignore-whitespace ../../../patches/resource_retriever_c++17.patch
+cd ../geometry && git apply --ignore-whitespace ../../../patches/tf_c++17.patch
+cd ../rqt_image_view && git apply --ignore-whitespace ../../../patches/rqt_image_view_c++17.patch
+cd ../robot_state_publisher && git apply --ignore-whitespace ../../../patches/robot_state_publisher_c++17.patch
+cd ../laser_filters && git apply --ignore-whitespace ../../../patches/laser_filters_c++17.patch
+cd ../laser_geometry && git apply --ignore-whitespace ../../../patches/laser_geometry_c++17.patch
+cd ../kdl_parser && git apply --ignore-whitespace ../../../patches/kdl_parser_c++17.patch
+
+
+## Install, rospkg e catkin_pkg should have been already installed
 ## Some of these could be compacted, honestly not willing to try with all the linking issues I've had so far.
-cd ..
+cd ../..
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="angles" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="roscpp_tutorials;rospy_tutorials;ros_tutorials;turtlesim" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="actionlib_tutorials;common_tutorials;nodelet_tutorial_math;pluginlib_tutorials;turtle_actionlib" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
