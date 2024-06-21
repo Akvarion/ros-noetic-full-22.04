@@ -96,6 +96,7 @@ cd ../kdl_parser && git apply --ignore-whitespace ../../../patches/kdl_parser_c+
 ## Install, rospkg e catkin_pkg should have been already installed
 ## Some of these could be compacted, honestly not willing to try with all the linking issues I've had so far.
 cd ../..
+source ./devel/setup.bash
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="angles" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="roscpp_tutorials;rospy_tutorials;ros_tutorials;turtlesim" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
 ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="actionlib_tutorials;common_tutorials;nodelet_tutorial_math;pluginlib_tutorials;turtle_actionlib" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
