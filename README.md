@@ -1,7 +1,8 @@
 # ros-noetic-full-22.04
 This is an attempt to build the desktop full version of ROS 1 Noetic from source. It uses a custom ubuntu 22.04 docker image as an evironment to build noetic, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7). Refer to the Changelog-Issues section of this readme for further info on the current situation.
 
-## Install
+## Install as a Docker Image
+### Ros Base
 Whole build and install of ros noetic base has been automated for use through the dockerfile provided in this repo. Open a terminal from a directory with the Dockerfile inside and simply run:
 ```
 ~ - sudo docker build -t ros_noetic_22_04 .
@@ -13,21 +14,144 @@ Next, you can start an interactive bash session with:
 ```
 You can run roscore after sourcing the file "setup.bash" from that interactive bash session.
 
-While the Desktop Full version has been built, further time is needed. To install the desktop full packages, you need run each "git clone" package inside the script `ros_noetic_df_update_git_pull.sh`: one by one, git clone, check if they appear in the script `patcher_df_update.sh`, apply the relative patch if needed and build with the following command:
+### Ros Desktop Full
+If you want the image to have the desktop full version, simply add the following lines to the Dockerfile:
 ```
-~ - cd /<path_to_directory>/catkin_ws
-~ - ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="package1;package2;package3" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
+RUN chmod 755 ./ros_noetic_desktop_full_update.sh
+RUN ./ros_noetic_desktop_full_update.sh
 ```
-where package1,package2,package3 are the names of the single packages to install (these MUST be specified, since a single package may be composed of more sub-packages: in this case, use the name of those sub-packages). Also, some packages may be required to be installed before others, but the compiler should tell you which package it is.
+and then have docker build the image with the same command as for the ros base install.
 
-The re-build of `catkin_pkg` and `rospkg` may be required every single time. To do so, launch this:
+## Install on a local machine
+### Ros Base
+To install ros base on a local machine, you will need to have these packages installed:
 ```
-~ - cd /ros_noetic_desktop_full_2204/catkin_pkg && python3 setup.py install
-~ - cd /ros_noetic_desktop_full_2204/rospkg && python3 setup.py install
+~ - sudo apt-get update && \
+        apt-get install -y \
+        cmake \
+        build-essential\
+        libboost-thread-dev \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-regex-dev \
+        libboost-program-options-dev \
+        libconsole-bridge-dev \
+        libpoco-dev \
+        libtinyxml2-dev \
+        liblz4-dev \
+        libbz2-dev \
+        uuid-dev \
+        liblog4cxx-dev \
+        libgpgme-dev \
+        libgtest-dev\
+        python3 \
+        python3-pip \
+        python3-setuptools \
+        python3-empy \
+        python3-nose \
+        python3-pycryptodome \
+        python3-defusedxml \
+        python3-mock \
+        python3-netifaces \
+        python3-gnupg \
+        python3-numpy \
+        python3-psutil
 ```
-
+After the installation process is complete, you'll have to run the install script:
+```
+~ - chmod 755 ./ros_noetic_base_install.sh
+~ - ./ros_noetic_base_install.sh
+```
+### Ros Desktop Full
+To install ros desktop full on a local machine, you will need to have these packages installed:
+```
+~ - sudo apt-get update && \
+        apt-get install -y \
+        cmake \
+        build-essential \
+        python3 \
+        pip \
+        git \
+        wget \
+        curl \
+        libcurl4-openssl-dev \
+        qtbase5-dev \
+        qt5-qmake \
+        qttools5-dev \
+        qttools5-dev-tools \
+        qtwebengine5-dev \
+        libqt5svg5-dev \
+        libqt5websockets5-dev \
+        libtinyxml-dev \
+        libboost-thread-dev \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-regex-dev \
+        libboost-program-options-dev \
+        libboost-python-dev \
+        libyaml-dev \
+        libyaml-cpp-dev \
+        libconsole-bridge-dev \
+        libpoco-dev \
+        libtinyxml2-dev \
+        liblz4-dev \
+        libbz2-dev \
+        uuid-dev \
+        liblog4cxx-dev \
+        libgpgme-dev \
+        libgtest-dev \
+        libbullet-dev \
+        libeigen3-dev \
+        libpcl-dev \
+        liburdfdom-dev \
+        libopencv-dev \
+        fltk1.1-dev \
+        python3-empy \
+        python3-nose \
+        python3-pycryptodome \
+        python3-defusedxml \
+        python3-mock \
+        python3-netifaces \
+        python3-gnupg \
+        python3-numpy \
+        python3-psutil \
+        python3-sip \
+        pyqt5-dev-tools \
+        sip-dev \
+        pyqt5-dev \
+        python3-sip-dev \
+        gazebo \
+        libgazebo-dev \
+        librviz-dev \
+        rviz
+```
+Also, there you need to install and compile Orocos:
+```
+~ - git clone https://github.com/orocos/orocos_kinematics_dynamics.git
+~ - mkdir /<path>/orocos_kinematics_dynamics/build
+~ - cd "/<path>/orocos_kinematics_dynamics/build"
+~ - cmake ../orocos_kdl && make && make install
+```
+and Stage (Stage and stage4 directories are in stored into the same <path> directory):
+```
+~ - git clone https://github.com/rtv/Stage.git
+~ - mkdir /<path>/stage4
+~ - cd "/<path>/stage4"
+~ - cmake ../Stage && make && make install
+```
+You will now need to install the ros base version with:
+```
+~ - chmod 755 ./ros_noetic_base_install.sh
+~ - ./ros_noetic_base_install.sh
+```
+and then run the update script:
+```
+~ - chmod 755 ./ros_noetic_desktop_full_update.sh
+~ - ./ros_noetic_desktop_full_update.sh
+```
 
 ## Changelog - Issues
+* 21/06/2024 - Developed install scripts to install ros base locally and update to desktop full. Dockerfile now relies on the ros base install script. Rviz moved toward a apt-get install instead of compiling by source as it is more reliable. Removed a tutorial package.
 * 03/06/2024 - Developed Dockerfile to automate ros-noetic base install; added patching scripts. Edited Readme.
 * 13/02/2024 - Finished building all packages required by `rosinstall`. Ros-noetic base is built and roscore runs without issues. Still, running `catkin_make install` of all the packages inside `catkin_ws/src` throws the same cmake error as of Feb 7th, although all packages have been successfully built one-by-one. I suspect some linking libraries errors due to the amount of packages to be installed, but it's just a hunch. Theoretically, ros noetic full should have been built since all packages have been installed one-by-one; emphasis on the theoretical aspect.
 * 12/02/2024 - Added patches to build:
