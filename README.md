@@ -1,5 +1,5 @@
-# ros-noetic-full-22.04
-This is an attempt to build the desktop full version of ROS 1 Noetic from source. It uses a custom ubuntu 22.04 docker image as an evironment to build noetic, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7). Refer to the Changelog-Issues section of this readme for further info on the current situation.
+# ROS Noetic on 22.04
+This repository should allow you to build ROS 1 Noetic Base and Desktop Full from source on ubuntu 22.04. You can install it through Docker by building an image with the dockerfile provided, in a very similar way to how Lukas Reisinger did it in [his article](https://medium.com/@lukas_reisinger/building-ros-noetic-on-ubuntu-22-04-b3ca676c63e7); or you can just install it locally on your machine by following the steps in this readme.
 
 ## Install as a Docker Image
 ### Ros Base
@@ -150,7 +150,7 @@ and then run the update script:
 ~ - ./ros_noetic_desktop_full_update.sh
 ```
 
-## Changelog - Issues
+## Changelog
 * 21/06/2024 - Developed install scripts to install ros base locally and update to desktop full. Dockerfile now relies on the ros base install script. Rviz moved toward a apt-get install instead of compiling by source as it is more reliable. Removed a tutorial package.
 * 03/06/2024 - Developed Dockerfile to automate ros-noetic base install; added patching scripts. Edited Readme.
 * 13/02/2024 - Finished building all packages required by `rosinstall`. Ros-noetic base is built and roscore runs without issues. Still, running `catkin_make install` of all the packages inside `catkin_ws/src` throws the same cmake error as of Feb 7th, although all packages have been successfully built one-by-one. I suspect some linking libraries errors due to the amount of packages to be installed, but it's just a hunch. Theoretically, ros noetic full should have been built since all packages have been installed one-by-one; emphasis on the theoretical aspect.
