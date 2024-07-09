@@ -149,6 +149,11 @@ and then run the update script:
 ~ - chmod 755 ./ros_noetic_desktop_full_update.sh
 ~ - ./ros_noetic_desktop_full_update.sh
 ```
+## Building a package
+When catkin tries to build a package, it will parse the whole src directory and see all the packages that can be built. While it shouldn't really matter, I advise not to and to tell it which package you want to build. This is to avoid things such as the requirement of other packages and linking issues I have experienced during build, as per changelog entry #1. This can be done easily by using the command written below while inside the catkin_ws directory:
+```
+catkin_ws - ./src/catkin/bin/catkin_make install -DCATKIN_WHITELIST_PACKAGES="<your_package_name_here>" -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3
+```
 
 ## Changelog
 * 21/06/2024 - Developed install scripts to install ros base locally and update to desktop full. Dockerfile now relies on the ros base install script. Rviz moved toward a apt-get install instead of compiling by source as it is more reliable. Removed a tutorial package.
